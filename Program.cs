@@ -26,7 +26,9 @@ namespace Aula31_Sprint4_WhatsAppConsole
 
             System.Console.WriteLine();
 
-            m1.Destinatario=;
+            m1.Texto="Oi né, tudo bem? \n";
+            m1.Enviar("José");
+            System.Console.WriteLine($"{m1.Texto}foi enviado para {m1.Destinatario}");
 
             
 
