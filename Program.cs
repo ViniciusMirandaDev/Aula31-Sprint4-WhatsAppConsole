@@ -7,30 +7,28 @@ namespace Aula31_Sprint4_WhatsAppConsole
     {
         static void Main(string[] args)
         {
-            Contato c1 = new Contato("Amanda", "1142323253");
-            Agenda contact = new Agenda();
-            Mensagem m1 = new Mensagem();
-        
-
-            contact.Cadastrar(c1);
-            contact.Excluir("Amanda");
             
-            List<Contato> lista = lista = contact.Listar();
+            Agenda agenda = new Agenda();
+            Contato c1 = new Contato("Paulo  ", "(11) 999999-99999");
+            Contato c2 = new Contato("Jonas  ", "(11) 999999-99999");
+            Contato c3 = new Contato("Gabriel", "(11) 999999-99999");
 
-            foreach( Contato item in lista)
+            agenda.Cadastrar(c1);
+            agenda.Cadastrar(c2);
+            agenda.Cadastrar(c3);
+
+            agenda.Excluir(c1);
+
+            foreach(Contato c in agenda.Listar())
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                System.Console.WriteLine($"R$ {item.Nome} - {item.Telefone}");
-                Console.ResetColor();
+                Console.WriteLine($"Nome: {c.Nome} - Tel: {c.Telefone}");
             }
+            Mensagem msg = new Mensagem();
+            msg.Destinatario = c3;
+            msg.Texto  = "Olá " + msg.Destinatario.Nome + "!";
+            System.Console.WriteLine( msg.Enviar());
 
-            System.Console.WriteLine();
 
-            m1.Texto="Oi né, tudo bem? \n";
-            m1.Enviar("José");
-            System.Console.WriteLine($"{m1.Texto}foi enviado para {m1.Destinatario}");
-
-            
 
         }
     }

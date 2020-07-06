@@ -4,9 +4,9 @@ namespace Aula31_Sprint4_WhatsAppConsole
 {
     public interface IAgenda
     {
-         void Cadastrar(Contato _contato);
+         void Cadastrar(Contato cont);
 
-         void Excluir(string Contato);
+         void Excluir(Contato cont);
          
          List<Contato> Listar();
 

@@ -6,7 +6,7 @@ namespace Aula31_Sprint4_WhatsAppConsole
 {
     public class Agenda : IAgenda
     {
-       
+        List<Contato> contatos = new List<Contato>();
         private const string PATH ="Database/contato.csv";
 
          public Agenda()
@@ -25,11 +25,11 @@ namespace Aula31_Sprint4_WhatsAppConsole
        /// Cadastra um novo contato
        /// </summary>
        /// <param name="_contato">Objeto _contato</param>
-        public void Cadastrar(Contato _contato)
+        public void Cadastrar(Contato cont)
         {
 
             //Cadastra uma linha nova no nosso csv
-            var linha = new string[] { PrepararLinhaCSV(_contato) };
+            var linha = new string[] { PrepararLinhaCSV(cont) };
             File.AppendAllLines(PATH, linha);
         }
 
@@ -37,7 +37,7 @@ namespace Aula31_Sprint4_WhatsAppConsole
         /// Exclui o contato
         /// </summary>
         /// <param name="Contato">Objeto Contato</param>
-        public void Excluir(string Contato)
+        public void Excluir(Contato cont)
         {
 
             //Cria-se uma lista que servirá como backup
@@ -47,7 +47,7 @@ namespace Aula31_Sprint4_WhatsAppConsole
             LerCSV(linhas);
 
             //Removemos as linhas que tiverem o termo
-            linhas.RemoveAll(l => l.Contains(Contato));
+            linhas.RemoveAll(l => l.Contains(cont.Nome));
 
             //Refatoração Aplicada
             ReescreverCSV(linhas);
@@ -56,7 +56,7 @@ namespace Aula31_Sprint4_WhatsAppConsole
         public List<Contato> Listar()
         {
             //Lista que servirá como retorno
-            List<Contato> contatos = new List<Contato>();
+            
             
             string[] linhas = File.ReadAllLines(PATH);
 
@@ -67,9 +67,7 @@ namespace Aula31_Sprint4_WhatsAppConsole
                 string[] dado = linha.Split(";");
                 
                 //Criam-se instâncias de produtos para serem colocados na lista
-                Contato c = new Contato();
-                c.Nome = (Separar(dado [0]));
-                c.Telefone = (Separar(dado[1]));
+                Contato c = new Contato(dado[0], dado[1]);
                 
                 //Adicionamos o Contato para a lista
                 contatos.Add(c);
@@ -115,7 +113,7 @@ namespace Aula31_Sprint4_WhatsAppConsole
         private string PrepararLinhaCSV(Contato c){
 
             //Prepara as linhas do csv para que elas fiquem do jeito desejado
-             return $"nome={c.Nome};telefone={c.Telefone}";
+             return $"{c.Nome};{c.Telefone}";
         }
 
     }
